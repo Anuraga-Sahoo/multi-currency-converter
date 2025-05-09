@@ -16,7 +16,7 @@ from config import API_KEY, BASE_URL
 ####################################################################################################################
 
 class ExchangeRateClient:
-    """Client for interacting with the ExchangeRate-API"""
+    """Client side implementation for interacting with the ExchangeRate-API"""
     
 ####################################################################################################################
 # Function: __init__

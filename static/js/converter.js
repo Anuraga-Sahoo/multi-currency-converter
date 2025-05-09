@@ -61,19 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fromCurrencySelect.addEventListener('change', updateChartFromSelects);
     toCurrencySelect.addEventListener('change', updateChartFromSelects);
     
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: populateCurrencySelects
- * Description: Populates the currency select dropdowns with available currencies.
- * Parameters: None
- * Returns: None
- * Usage: Called on DOMContentLoaded to initialize the currency dropdowns.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - This function iterates through the CURRENCIES array and creates option elements for each currency.
-    *        - Each option element is appended to the respective select element (fromCurrencySelect and toCurrencySelect).
-    *       - The createCurrencyOption function is used to create the option elements.
-**/
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Functions
     function populateCurrencySelects() {
         CURRENCIES.forEach(currency => {
             const fromOption = createCurrencyOption(currency);
@@ -84,36 +72,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: createCurrencyOption
- * Description: Creates an option element for a currency.
- * Parameters: currency (object) - The currency object containing code, name, and symbol.
- * Returns: option (HTMLSelectElement) - The created option element.
- * Usage: Used in populateCurrencySelects to create options for the currency select dropdowns.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - This function creates an option element with the currency code as the value and the currency name as the text content.
-    *       - The option element is returned to be appended to the select element.
-**/
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function createCurrencyOption(currency) {
         const option = document.createElement('option');
         option.value = currency.code;
         option.textContent = `${currency.code} - ${currency.name}`;
         return option;
     }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: populateBaseCurrencyDropdown
- * Description: Populates the base currency dropdown with available currencies.
- * Parameters: None
- * Returns: None
- * Usage: Called on DOMContentLoaded to initialize the base currency dropdown.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - This function iterates through the CURRENCIES array and creates list items for each currency.
-    *        - Each list item is appended to the baseCurrencyDropdown element.
-**/
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    
     function populateBaseCurrencyDropdown() {
         CURRENCIES.forEach(currency => {
             const li = document.createElement('li');
@@ -130,19 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             baseCurrencyDropdown.appendChild(li);
         });
     }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: handleConversion
- * Description: Handles the conversion process when the form is submitted.
- * Parameters: e (Event) - The event object from the form submission.
- * Returns: None
- * Usage: Called when the user submits the conversion form.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - The function validates the input amount and fetches conversion data from the API.
-    *        - It also updates the chart with the selected currencies.
-**/
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    
     function handleConversion(e) {
         e.preventDefault();
         
@@ -162,22 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Fetch conversion data
         fetchConversion(amount, fromCurrency, toCurrency);
     }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: fetchConversion
- * Description: Fetches conversion data from the API and updates the UI.
- * Parameters: amount (number) - The amount to convert.
- *           fromCurrency (string) - The currency to convert from.
- *          toCurrency (string) - The currency to convert to.
- * Returns: None
- * Usage: Called when the user submits the conversion form.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - The function makes a fetch request to the API and handles the response.
-    *        - It updates the conversion result and rate in the UI.
-**/
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-
+    
     function fetchConversion(amount, fromCurrency, toCurrency) {
         fetch(`/api/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}`)
             .then(response => {
@@ -198,23 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 showError(`Conversion failed: ${error.message}`);
             });
     }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: displayResult
- * Description: Displays the conversion result and rate in the UI.
- * Parameters: data (object) - The conversion data from the API.
- *          amount (number) - The amount to convert.
- *       fromCurrency (string) - The currency to convert from.
- *      toCurrency (string) - The currency to convert to.
- * Returns: None
- * Usage: Called after fetching conversion data from the API.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - The function updates the conversion result and rate in the UI.
-    *        - It also sets the last updated time.
-**/
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-
+    
     function displayResult(data, amount, fromCurrency, toCurrency) {
         const fromCurrencyData = CURRENCIES.find(c => c.code === fromCurrency);
         const toCurrencyData = CURRENCIES.find(c => c.code === toCurrency);
@@ -232,19 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show result container
         resultContainer.classList.remove('d-none');
     }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: swapCurrencies
- * Description: Swaps the selected currencies in the dropdowns.
- * Parameters: None
- * Returns: None
- * Usage: Called when the user clicks the "Swap" button.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - The function swaps the values of the fromCurrencySelect and toCurrencySelect elements.
-    *        - It also updates the chart after swapping.
-**/
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    
     function swapCurrencies() {
         const temp = fromCurrencySelect.value;
         fromCurrencySelect.value = toCurrencySelect.value;
@@ -254,86 +164,13 @@ document.addEventListener('DOMContentLoaded', function() {
         updateChartFromSelects();
     }
     
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: updateChartFromSelects
- * Description: Updates the chart based on the selected currencies in the dropdowns.
- * Parameters: None
- * Returns: None
- * Usage: Called when the user changes the selected currencies in the dropdowns.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - The function retrieves the selected currencies and calls the updateChart function.
-**/
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
-   
+    // New function to update the chart based on current select values
     function updateChartFromSelects() {
         const fromCurrency = fromCurrencySelect.value;
         const toCurrency = toCurrencySelect.value;
         updateChart(fromCurrency, toCurrency);
     }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: loadFavorites
- * Description: Loads and displays the user's favorite currency conversions from local storage.
- * Parameters: None
- * Returns: None
- * Usage: Called on DOMContentLoaded to initialize the favorites list.  
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - The function retrieves the favorites from local storage and displays them in the favorites container.
-    *        - It also adds event listeners to remove buttons for each favorite.
-**/
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-
-    function loadFavorites() {
-        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        favoritesContainer.innerHTML = ''; // Clear previous favorites
-
-        if (favorites.length === 0) {
-            favoritesContainer.innerHTML = '<p class="text-muted">No favorites saved.</p>';
-            return;
-        }
-
-        favorites.forEach(favorite => {
-            const { fromCurrency, toCurrency } = favorite;
-            const fromCurrencyData = CURRENCIES.find(c => c.code === fromCurrency);
-            const toCurrencyData = CURRENCIES.find(c => c.code === toCurrency);
-        });
-        
-        const favoritesContainer = document.getElementById('favorites-container');
-        favoritesContainer.innerHTML = ''; // Clear previous favorites
     
-        const li = document.createElement('li');
-        li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
-        li.innerHTML = `
-
-            <span>${fromCurrencyData.code} to ${toCurrencyData.code}</span>
-            <button class="btn btn-danger btn-sm remove-favorite" data-from="${fromCurrency}" data-to="${toCurrency}">
-                <i class="fas fa-trash"></i>
-            </button>
-        `;
-        favoritesContainer.appendChild(li);
-        li.querySelector('.remove-favorite').addEventListener('click', removeFavorite);
-
-        const removeButtons = favoritesContainer.querySelectorAll('.remove-favorite');
-        removeButtons.forEach(button => {
-            button.addEventListener('click', removeFavorite);
-        });
-    }
-    
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: loadPopularRates
- * Description: Loads and displays popular currency rates based on the selected base currency.
- * Parameters: baseCurrency (string) - The base currency to fetch rates for.
- * Returns: None
- * Usage: Called when the user selects a base currency from the dropdown.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - The function fetches popular currency rates from the API and displays them in the popular rates container.
-    *        - It handles errors and displays a warning message if the rates cannot be loaded.
-**/
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
     function loadPopularRates(baseCurrency) {
         fetch(`/api/rates?base=${baseCurrency}`)
             .then(response => {
@@ -368,21 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             });
     }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: displayPopularRates
- * Description: Displays popular currency rates in the UI.
- * Parameters: data (object) - The rates data from the API.
- *         baseCurrency (string) - The base currency for the rates.
- * Returns: None
- * Usage: Called after fetching popular rates from the API.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - The function creates cards for popular currencies and displays their rates.
-    *        - It handles cases where the rate data is invalid or missing.
-    *        - It also adds visual feedback for missing rates.
-**/
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////     
+    
     function displayPopularRates(data, baseCurrency) {
         // Clear container
         popularRatesContainer.innerHTML = '';
@@ -451,36 +274,13 @@ document.addEventListener('DOMContentLoaded', function() {
             popularRatesContainer.appendChild(col);
         });
     }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: showError
- * Description: Displays an error message in the UI.
- * Parameters: message (string) - The error message to display.
- * Returns: None
- * Usage: Called when an error occurs during API requests or validation.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - The function updates the error message text and shows the error container.
-    *        - It hides the result container if an error occurs.
-**/
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////     
+    
     function showError(message) {
         errorMessage.textContent = message;
         errorContainer.classList.remove('d-none');
         resultContainer.classList.add('d-none');
     }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/** Function: toggleTheme
- * Description: Toggles between light and dark themes.
- * Parameters: None
- * Returns: None
- * Usage: Called when the user clicks the theme toggle button.
- * Author: Ojas Ulhas Dighe
- * Date: 29 Apr 2025
-    * Notes: - The function changes the theme stylesheet and updates the button text accordingly.
-**/
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////     
+    
     function toggleTheme() {
         const themeStyle = document.getElementById('theme-style');
         const isDarkMode = themeStyle.getAttribute('href').includes('dark-mode');

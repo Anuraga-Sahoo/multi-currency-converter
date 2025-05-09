@@ -4,8 +4,11 @@ import json
 import os
 from datetime import datetime, timedelta
 from config import API_KEY, BASE_URL
+from flask_cors import CORS # Importing CORS for cross-origin resource sharing
+
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Home page route
 @app.route('/')
@@ -59,17 +62,16 @@ def get_rates():
 # Function: convert_currency
 # Description: Convert currency using the API
 # Parameters:
-#     from_currency (str): Source currency code
-#     to_currency (str): Target currency code
-#     amount (float): Amount to convert
+#     None
 # Returns:
 #     JSON response with conversion result or error message
 # Raises:
-#     ValueError: If the amount is not a valid number
 #     requests.exceptions.RequestException: If the request fails
+#     ValueError: If the amount is not a valid number
+#     KeyError: If the response does not contain expected fields
 # Author: Ojas Ulhas Dighe
 # Date: 29 Apr 2025
-#################################################################################################################### 
+####################################################################################################################
 def convert_currency():
     from_currency = request.args.get('from', 'USD')
     to_currency = request.args.get('to', 'EUR')
@@ -116,16 +118,16 @@ def convert_currency():
 # Function: get_history
 # Description: Fetch historical exchange rates for a given period
 # Parameters:
-#     base_currency (str): Base currency code (default: 'USD')
-#     target_currency (str): Target currency code (default: 'EUR')
-#     days (int): Number of days to fetch historical data for (default: 7, max: 30)
+#     None
 # Returns:
-#     JSON response with historical data or error message
+#     JSON response with conversion result or error message
 # Raises:
 #     requests.exceptions.RequestException: If the request fails
+#     ValueError: If the amount is not a valid number
+#     KeyError: If the response does not contain expected fields
 # Author: Ojas Ulhas Dighe
 # Date: 29 Apr 2025
-#################################################################################################################### 
+####################################################################################################################
 def get_history():
     base_currency = request.args.get('base', 'USD')
     target_currency = request.args.get('target', 'EUR')
@@ -176,4 +178,5 @@ def get_history():
         return jsonify({"error": "Failed to fetch historical data", "details": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0'  , port=int(os.environ.get('PORT', 5000)))
+    # Set debug to True for development, False for production

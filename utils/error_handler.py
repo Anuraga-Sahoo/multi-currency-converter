@@ -80,8 +80,8 @@ class APIError(Exception):
 # Author: Ojas Ulhas Dighe
 # Date: 29 Apr 2025
 #################################################################################################################### 
-    def handle_api_error(app):
-        """Register error handlers with Flask app"""
+def handle_api_error(app):
+    """Register error handlers with Flask app"""
     
     # Handle custom API errors
     @app.errorhandler(APIError)
