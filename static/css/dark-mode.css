@@ -3,14 +3,23 @@ body {
     background-color: #121212;
     color: #e0e0e0;
 }
+.nav{
+    background-color: black;
+}
+h2{
+    color: white !important;
+    
+}
 
 .bg-light {
     background-color: #1e1e1e !important;
 }
 
+
 .text-muted {
     color: #adb5bd !important;
 }
+
 
 .card {
     background-color: #1e1e1e;

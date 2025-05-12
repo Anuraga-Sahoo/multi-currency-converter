@@ -244,9 +244,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const card = document.createElement('div');
             card.classList.add('card', 'h-100', 'popular-rate-card');
+
+            const cardHeadContainer = document.createElement('div')
+            cardHeadContainer.classList.add('cardHead')
             
             const cardBody = document.createElement('div');
-            cardBody.classList.add('card-body', 'text-center');
+            cardBody.classList.add('card-body', 'text-center', 'card-body-container');
             
             const currencyTitle = document.createElement('h5');
             currencyTitle.classList.add('card-title');
@@ -257,19 +260,21 @@ document.addEventListener('DOMContentLoaded', function() {
             currencyName.textContent = currency.name;
             
             const rateDisplay = document.createElement('p');
-            rateDisplay.classList.add('card-text', 'display-6', 'mt-2');
+            rateDisplay.classList.add('card-text-green','card-text', 'display-6', 'mt-2');
             rateDisplay.textContent = `${currency.symbol}${rate.toFixed(2)}`;
             
             const exchangeRate = document.createElement('p');
             exchangeRate.classList.add('card-text', 'small');
             exchangeRate.textContent = `1 ${baseCurrency} = ${currency.symbol}${rate.toFixed(4)}`;
             
-            cardBody.appendChild(currencyTitle);
+            cardBody.appendChild(cardHeadContainer)
+            cardHeadContainer.appendChild(currencyTitle);
             cardBody.appendChild(currencyName);
-            cardBody.appendChild(rateDisplay);
+            cardHeadContainer.appendChild(rateDisplay);
             cardBody.appendChild(exchangeRate);
             card.appendChild(cardBody);
             col.appendChild(card);
+            
             
             popularRatesContainer.appendChild(col);
         });
@@ -280,17 +285,21 @@ document.addEventListener('DOMContentLoaded', function() {
         errorContainer.classList.remove('d-none');
         resultContainer.classList.add('d-none');
     }
-    
+    //  Dark mode light mode
     function toggleTheme() {
         const themeStyle = document.getElementById('theme-style');
         const isDarkMode = themeStyle.getAttribute('href').includes('dark-mode');
+        const logo = document.getElementById('logo')
+        
         
         if (isDarkMode) {
             themeStyle.setAttribute('href', '/static/css/light-mode.css');
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i> ';
+            logo.setAttribute('src','/static/img/Fine.png')
         } else {
             themeStyle.setAttribute('href', '/static/css/dark-mode.css');
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i> ';
+            logo.setAttribute('src','/static/img/logoNew.png')
         }
     }
     

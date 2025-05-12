@@ -2,7 +2,73 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: background-color 0.3s, color 0.3s;
+    padding-top: 80px;
+    
 }
+.nav{
+    background-color: #ffff;
+    color: black;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: add shadow */
+}
+.logo{
+    height: 1.5rem;
+}
+.favorite-and-darkLight-mode-container{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.fa-bookmark{
+    font-size: x-large;
+    cursor: pointer;
+    color: #493fd6;
+    
+    /* border:2px solid rgb(216, 119, 119) ; */
+    
+}
+.fa-bookmark:hover{
+    color: rgb(54, 54, 53);
+    transition: all ease 0.5s;
+}
+.fa-moon{
+    color: #493fd6;
+    font-size: x-large;
+
+
+}
+.fa-sun{
+     color: #493fd6;
+    font-size: x-large;
+}
+.convertion-value {
+    color: rgb(100, 219, 100);
+}
+.card-text-green{
+    color: rgb(100, 219, 100);
+    font-size: x-large;
+    font-weight: 500;
+
+}
+.card-body-container{
+    height:9rem;
+    width: 100%;
+    border-radius: 10px;
+    /* background-color: #0d6efd; */
+}
+.cardHead{
+    display: flex;
+    width: 98%;
+    gap: 3rem;
+    justify-content: space-around;
+    align-items: center;
+    /* background-color: red; */
+}
+/* .button{
+    background-color: rgb(238, 242, 242);
+    color: black;
+    border-radius: 50%;
+} */
 
 .card {
     border-radius: 10px;
